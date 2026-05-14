@@ -41,101 +41,259 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-    html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
-    }
+    html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 
+    /* ── Arka plan ── */
     .stApp {
-        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        background: radial-gradient(ellipse at 15% 60%, rgba(0,212,184,0.11) 0%, transparent 55%),
+                    radial-gradient(ellipse at 85% 15%, rgba(249,115,22,0.10) 0%, transparent 55%),
+                    linear-gradient(160deg, #060d0b 0%, #0b1714 40%, #0f1e1a 100%);
         min-height: 100vh;
     }
 
+    /* ── Hero ── */
+    .hero-wrap { text-align: center; padding: 1.8rem 0 1rem 0; }
     .hero-title {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #ffffff;
-        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #ffffff 0%, #5eead4 45%, #f97316 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleGlow 4s ease-in-out infinite alternate;
         margin-bottom: 0.3rem;
-        letter-spacing: -0.5px;
+    }
+    @keyframes titleGlow {
+        from { filter: drop-shadow(0 0 18px rgba(0,212,184,0.30)); }
+        to   { filter: drop-shadow(0 0 36px rgba(249,115,22,0.40)); }
+    }
+    .heart-pulse {
+        display: inline-block;
+        animation: heartbeat 2s ease-in-out infinite;
+        -webkit-text-fill-color: initial;
+        background: none;
+        filter: none;
+    }
+    @keyframes heartbeat {
+        0%,100% { transform: scale(1);    }
+        14%     { transform: scale(1.18); }
+        28%     { transform: scale(1);    }
+        42%     { transform: scale(1.10); }
+        56%     { transform: scale(1);    }
     }
     .hero-sub {
         font-size: 0.95rem;
-        color: rgba(255,255,255,0.5);
-        text-align: center;
-        margin-bottom: 0.2rem;
+        color: rgba(255,255,255,0.45);
+        margin-bottom: 0.5rem;
     }
     .hero-badge {
         display: inline-block;
-        background: linear-gradient(90deg, #6c63ff, #48cae4);
+        background: linear-gradient(90deg, rgba(0,188,164,0.85), rgba(249,115,22,0.85));
         color: white;
-        font-size: 0.72rem;
-        font-weight: 600;
-        padding: 3px 12px;
+        font-size: 0.70rem;
+        font-weight: 700;
+        padding: 4px 14px;
         border-radius: 20px;
-        letter-spacing: 0.8px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        margin-bottom: 1.6rem;
+        margin-bottom: 1.4rem;
+        box-shadow: 0 2px 14px rgba(0,212,184,0.35);
     }
 
+    /* ── Sekmeler ── */
+    .stTabs [data-baseweb="tab-list"] {
+        background: rgba(255,255,255,0.03) !important;
+        border: 1px solid rgba(255,255,255,0.07) !important;
+        border-radius: 14px !important;
+        padding: 5px !important;
+        gap: 4px !important;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 10px !important;
+        color: rgba(255,255,255,0.45) !important;
+        font-weight: 600 !important;
+        font-size: 0.88rem !important;
+        padding: 8px 22px !important;
+        transition: all 0.2s ease !important;
+        background: transparent !important;
+        border: none !important;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
+        color: rgba(255,255,255,0.75) !important;
+        background: rgba(255,255,255,0.05) !important;
+    }
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(0,188,164,0.45), rgba(249,115,22,0.35)) !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 18px rgba(0,212,184,0.30), inset 0 1px 0 rgba(255,255,255,0.1) !important;
+    }
+    .stTabs [data-baseweb="tab-highlight"] { display: none !important; }
+
+    /* ── Bölüm etiketi ── */
     .section-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #a78bfa;
+        font-size: 0.73rem;
+        font-weight: 700;
+        color: #2dd4bf;
         text-transform: uppercase;
-        letter-spacing: 1.2px;
-        margin-bottom: 0.8rem;
+        letter-spacing: 1.4px;
+        margin-bottom: 0.9rem;
         margin-top: 0.4rem;
     }
+    .section-label::after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 28px;
+        margin-top: 5px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #00d4b8, #f97316);
+        box-shadow: 0 0 6px rgba(0,212,184,0.55);
+    }
 
+    /* ── Çizgi ── */
     .divider {
         border: none;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        border-top: 1px solid rgba(255,255,255,0.07);
         margin: 1.4rem 0;
     }
 
-    .result-box {
-        border-radius: 14px;
-        padding: 1.6rem 1.8rem;
-        margin-top: 1rem;
-        animation: fadeIn 0.4s ease;
-        border: 1px solid;
-    }
-    .result-green  { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); }
-    .result-yellow { background: rgba(245, 158, 11, 0.15);  border-color: rgba(245, 158, 11, 0.4); }
-    .result-red    { background: rgba(239, 68, 68, 0.15);   border-color: rgba(239, 68, 68, 0.4); }
-    .result-title  { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .result-desc   { font-size: 0.88rem; opacity: 0.85; line-height: 1.55; }
-    .result-meta   { font-size: 0.78rem; opacity: 0.6; margin-top: 0.7rem; font-family: monospace; }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(8px); }
-        to   { opacity: 1; transform: translateY(0); }
+    /* ── Form konteyneri ── */
+    [data-testid="stForm"] {
+        background: rgba(255,255,255,0.035) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06) !important;
     }
 
+    /* ── Input alanları ── */
     .stSelectbox label, .stNumberInput label, .stRadio label {
-        color: rgba(255,255,255,0.75) !important;
-        font-size: 0.88rem !important;
+        color: rgba(255,255,255,0.7) !important;
+        font-size: 0.86rem !important;
         font-weight: 500 !important;
     }
-    .stButton > button {
-        background: linear-gradient(135deg, #6c63ff, #48cae4) !important;
+    .stSelectbox > div > div {
+        background: rgba(255,255,255,0.06) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 10px !important;
         color: white !important;
+        transition: border-color 0.2s, box-shadow 0.2s !important;
+    }
+    .stSelectbox > div > div:hover {
+        border-color: rgba(0,212,184,0.55) !important;
+        box-shadow: 0 0 0 3px rgba(0,212,184,0.12) !important;
+    }
+    .stNumberInput > div > div > input {
+        background: rgba(255,255,255,0.06) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 10px !important;
+        color: white !important;
+    }
+    .stNumberInput > div > div > input:focus {
+        border-color: rgba(0,212,184,0.55) !important;
+        box-shadow: 0 0 0 3px rgba(0,212,184,0.14) !important;
+    }
+    div[data-testid="stRadio"] > div {
+        background: rgba(255,255,255,0.03) !important;
+        border-radius: 10px !important;
+        padding: 0.4rem 0.6rem !important;
+        gap: 6px !important;
+    }
+
+    /* ── Sonuç kutuları ── */
+    .result-box {
+        border-radius: 16px;
+        padding: 1.7rem 2rem;
+        margin-top: 1.2rem;
+        animation: fadeSlide 0.45s cubic-bezier(.16,1,.3,1) both;
+        border: 1px solid;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+    .result-green {
+        background: rgba(0,212,184,0.09);
+        border-color: rgba(0,212,184,0.45);
+        box-shadow: 0 0 30px rgba(0,212,184,0.20), inset 0 1px 0 rgba(0,212,184,0.1);
+    }
+    .result-yellow {
+        background: rgba(249,115,22,0.09);
+        border-color: rgba(249,115,22,0.45);
+        box-shadow: 0 0 30px rgba(249,115,22,0.20), inset 0 1px 0 rgba(249,115,22,0.1);
+    }
+    .result-red {
+        background: rgba(239,68,68,0.09);
+        border-color: rgba(239,68,68,0.45);
+        box-shadow: 0 0 30px rgba(239,68,68,0.20), inset 0 1px 0 rgba(239,68,68,0.1);
+    }
+    .result-title { font-size: 1.35rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .result-desc  { font-size: 0.88rem; opacity: 0.84; line-height: 1.6; }
+    .result-meta  { font-size: 0.76rem; opacity: 0.55; margin-top: 0.8rem; font-family: monospace; }
+
+    @keyframes fadeSlide {
+        from { opacity: 0; transform: translateY(12px) scale(0.98); }
+        to   { opacity: 1; transform: translateY(0)  scale(1); }
+    }
+
+    /* ── Metric kartları ── */
+    [data-testid="stMetric"] {
+        background: rgba(255,255,255,0.04) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        border-radius: 16px !important;
+        padding: 1.1rem 1.4rem !important;
+        backdrop-filter: blur(12px) !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
+        transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    [data-testid="stMetric"]:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 32px rgba(0,212,184,0.22) !important;
+    }
+    [data-testid="stMetricLabel"] > div {
+        color: rgba(255,255,255,0.5) !important;
+        font-size: 0.75rem !important;
         font-weight: 600 !important;
+        letter-spacing: 0.8px !important;
+        text-transform: uppercase !important;
+    }
+    [data-testid="stMetricValue"] > div {
+        color: #2dd4bf !important;
+        font-weight: 800 !important;
+        font-size: 1.75rem !important;
+    }
+
+    /* ── Buton ── */
+    .stButton > button {
+        background: linear-gradient(135deg, #00bfa8, #f97316) !important;
+        color: white !important;
+        font-weight: 700 !important;
         font-size: 1rem !important;
         border: none !important;
         border-radius: 12px !important;
-        padding: 0.65rem 2rem !important;
+        padding: 0.7rem 2rem !important;
         width: 100% !important;
-        letter-spacing: 0.3px !important;
-        transition: opacity 0.2s, transform 0.15s !important;
-        box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4) !important;
+        letter-spacing: 0.4px !important;
+        transition: transform 0.18s, box-shadow 0.18s !important;
+        box-shadow: 0 4px 20px rgba(0,191,168,0.45), 0 0 40px rgba(249,115,22,0.15) !important;
     }
     .stButton > button:hover {
-        opacity: 0.88 !important;
-        transform: translateY(-1px) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 30px rgba(0,191,168,0.60), 0 0 60px rgba(249,115,22,0.25) !important;
     }
+    .stButton > button:active { transform: translateY(0px) !important; }
+
+    /* ── Kaydırma çubuğu ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,212,184,0.4); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,0.55); }
+
+    /* ── Genel metin ── */
+    .stMarkdown p, .stMarkdown strong { color: rgba(255,255,255,0.85); }
     </style>
     """,
     unsafe_allow_html=True,
@@ -233,11 +391,13 @@ def evaluate_risk(age: int, gender: int, other_factors: float):
 
 st.markdown(
     """
-    <div style="text-align:center; padding: 1.2rem 0 0.8rem 0;">
-        <div class="hero-title">🫀 Kardiyovasküler Risk Tahmini</div>
-        <div class="hero-sub">Bulanık Mantık Tabanlı Kural Motoru</div>
-        <div style="margin-top:0.6rem;">
-            <span class="hero-badge">Makale Reprodüksiyonu · Tablo 13</span>
+    <div class="hero-wrap">
+        <div class="hero-title">
+            <span class="heart-pulse">🫀</span> Kardiyovasküler Risk Tahmini
+        </div>
+        <div class="hero-sub">Bulanık Mantık Tabanlı Kural Motoru &nbsp;·&nbsp; 68 601 Hasta · 7 Model</div>
+        <div style="margin-top:0.7rem;">
+            <span class="hero-badge">Makale Reprodüksiyonu &nbsp;·&nbsp; Tablo 13</span>
         </div>
     </div>
     """,
