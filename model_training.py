@@ -33,10 +33,14 @@ Kullanım:
 """
 
 import json
+import sys
 import time
 import sqlite3
 import logging
 from pathlib import Path
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 import pandas as pd
 from sklearn.base import clone
